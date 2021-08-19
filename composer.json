@@ -1,0 +1,22 @@
+{
+    "name": "ihorhnatchuk/arsmoon-testing",
+    "description": "Arsmoon testing task",
+    "keywords": ["php"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ihorhnatchuk",
+            "email": "ihorhnatchuk@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}

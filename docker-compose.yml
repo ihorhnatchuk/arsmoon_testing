@@ -1,0 +1,42 @@
+version: '3.8'
+x-logging: &default-logging
+  options:
+    max-size: '200m'
+    max-file: '100'
+  driver: json-file
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile
+    image: 'arsmoon_app'
+    container_name: 'arsmoon_app'
+    restart: unless-stopped
+    logging: *default-logging
+    shm_size: '10gb'
+    environment:
+      APP_ENV: '${APP_ENV}'
+      CONTAINER_ROLE: app
+      CACHE_DRIVER: redis
+      SESSION_DRIVER: redis
+      QUEUE_DRIVER: redis
+      REDIS_HOST: redis
+    volumes:
+      - .:/app
+
+  front:
+    build: ./.docker/nginx
+    image: 'arsmoon_nginx:alpine'
+    container_name: 'arsmoon_front'
+    logging: *default-logging
+    shm_size: '10gb'
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./.docker/nginx/conf.d:/etc/nginx/conf.d
+      - .:/app
+    depends_on:
+      - app
+    links:
+      - app
