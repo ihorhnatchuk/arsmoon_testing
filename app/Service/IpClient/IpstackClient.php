@@ -1,24 +1,32 @@
 <?php 
 
-namespace App\Api;
+namespace App\Service\IpClient;
 
 use Exception;
+use App\Contracts\IpClient;
+use Core\Contracts\Support\Searchable;
 
-class IpstackClient {
-
+class IpstackClient implements IpClient
+{
     public const ACCESS_KEY = 'b523d1999310c5b6783e0b6727beb3bc';
 
     public array $result;
 
-    public function __construct(public string $ip)
+    public string $ipAdrees;
+
+    public function search(string $ipAdrees = '')
     {
-        
+        $this->ipAdrees = $ipAdrees;
+
+        $this->execute();
+
+        return $this;
     }
 
     public function execute(): self
     {
         try {
-            $ch = curl_init('http://api.ipstack.com/'.$this->ip.'?access_key='. self::ACCESS_KEY.'');
+            $ch = curl_init('http://api.ipstack.com/'.$this->ipAdrees.'?access_key='. self::ACCESS_KEY.'');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
             $result = curl_exec($ch);

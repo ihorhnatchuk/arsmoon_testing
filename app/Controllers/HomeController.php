@@ -1,10 +1,14 @@
 <?php 
 namespace App\Controllers;
 
-class HomeController
+use Core\Controller\Controller;
+
+class HomeController extends Controller
 {
-    public function __invoke()
+    public function __invoke(array $params = [])
     {
-       require_once dirname(dirname( __DIR__)) .'/resources/views/home.php';
+       return $this->view->render('home', [
+           'title' => 'Home'
+       ]);
     }
 }

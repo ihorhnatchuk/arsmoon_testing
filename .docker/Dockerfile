@@ -16,8 +16,8 @@ RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
 WORKDIR /app
 
 # Arguments defined in docker-compose.yml
-ARG GROUP_ID=football_user
-ARG USER=football_user
+ARG GROUP_ID=some_user
+ARG USER=some_user
 
 
 

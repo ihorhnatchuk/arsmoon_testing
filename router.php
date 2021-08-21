@@ -7,7 +7,7 @@ use App\Controllers\UploadFileController;
 $router = new Router();
 
 $router->get('/', HomeController::class);
-$router->get('/upload', UploadFileController::class);
+$router->post('/upload', UploadFileController::class);
 
 $router->addNotFoundHandler(function(){
     echo 'Not Found';
